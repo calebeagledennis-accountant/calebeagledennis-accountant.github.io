@@ -186,6 +186,8 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 3px solid #1a1a2e;
+            cursor: pointer;
+            position: relative;
         }
 
         .photo-card:hover {
@@ -207,6 +209,64 @@
             font-weight: 500;
             color: #1a1a2e;
             border-top: 2px solid #d4a574;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #f9f7f4;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #d4a574;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         /* Contact Section */
@@ -297,6 +357,12 @@
             .photo-card img {
                 height: 180px;
             }
+
+            .modal-close {
+                top: 20px;
+                right: 20px;
+                font-size: 30px;
+            }
         }
 
         /* Smooth scrolling */
@@ -347,45 +413,53 @@
 
             <h3>Just Having Fun & Fishing</h3>
             <div class="photo-grid">
-                <div class="photo-card">
+                <div class="photo-card" onclick="openModal(this)">
                     <img src="1000004992.jpg" alt="Having fun and fishing">
                     <div class="photo-caption">Good Times & Fishing</div>
                 </div>
-                <div class="photo-card">
-                    <img src="5674.jpeg" alt="Personal time">
-                    <div class="photo-caption">Personal Time</div>
+                <div class="photo-card" onclick="openModal(this)">
+                    <img src="5674.jpeg" alt="Little catch">
+                    <div class="photo-caption">Little Catch!</div>
                 </div>
             </div>
 
-            <h3>Professional Development - City of Henderson Lifeguard</h3>
+            <h3>Student - Utah State University</h3>
             <div class="photo-grid">
-                <div class="photo-card">
+                <div class="photo-card" onclick="openModal(this)">
+                    <img src="PXL_20260823_204748272.jpg" alt="Student at Utah State University">
+                    <div class="photo-caption">USU Student</div>
+                </div>
+            </div>
+
+            <h3>Balance & Wellness - Active Temple Recommend</h3>
+            <div class="photo-grid">
+                <div class="photo-card" onclick="openModal(this)">
+                    <img src="PXL_20260816_215701481.MP.jpg" alt="Temple - Active Temple Recommend">
+                    <div class="photo-caption">Active Temple Recommend</div>
+                </div>
+            </div>
+
+            <h3>First Job! - City of Henderson Lifeguarding</h3>
+            <div class="photo-grid">
+                <div class="photo-card" onclick="openModal(this)">
                     <img src="PXL_20240804_013429902.jpg" alt="Lifeguard at City of Henderson">
-                    <div class="photo-caption">Lifeguard - City of Henderson</div>
+                    <div class="photo-caption">City of Henderson Lifeguard</div>
                 </div>
             </div>
 
-            <h3>Active Lifestyle - Missionary Service</h3>
+            <h3>Missionary Service in Arkansas - Ask me for one! Pregunta me para uno! 📖 Book of Mormon / El libro de mormon</h3>
             <div class="photo-grid">
-                <div class="photo-card">
-                    <img src="20240926_150601.jpg" alt="Missionary service">
-                    <div class="photo-caption">Missionary Service</div>
+                <div class="photo-card" onclick="openModal(this)">
+                    <img src="20240926_150601.jpg" alt="Missionary service in Arkansas">
+                    <div class="photo-caption">Mission Service</div>
                 </div>
             </div>
 
-            <h3>Growth & Experience - Stadium Construction</h3>
+            <h3>Fun Job! - Stadium Construction at Night - Fun Experience!</h3>
             <div class="photo-grid">
-                <div class="photo-card">
-                    <img src="PXL_20260730_071759569.jpg" alt="Night shift stadium construction">
-                    <div class="photo-caption">Stadium Construction - Night Shift</div>
-                </div>
-            </div>
-
-            <h3>Balance & Wellness - Active Member of The Church of Jesus Christ of Latter-Day Saints</h3>
-            <div class="photo-grid">
-                <div class="photo-card">
-                    <img src="PXL_20260816_215701481.MP.jpg" alt="Temple - Church member">
-                    <div class="photo-caption">Temple - LDSS Church Member</div>
+                <div class="photo-card" onclick="openModal(this)">
+                    <img src="PXL_20260730_071759569.jpg" alt="Stadium construction night shift">
+                    <div class="photo-caption">Stadium Construction</div>
                 </div>
             </div>
         </section>
@@ -442,10 +516,50 @@
 
     </div>
 
+    <!-- Modal for expanded photos -->
+    <div id="photoModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 Caleb Dennis. All rights reserved.</p>
         <p>Accounting Student | Huntsman School of Business | Utah State University</p>
     </footer>
+
+    <script>
+        const modal = document.getElementById('photoModal');
+        const modalImage = document.getElementById('modalImage');
+
+        function openModal(photoCard) {
+            const img = photoCard.querySelector('img');
+            modalImage.src = img.src;
+            modalImage.alt = img.alt;
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
