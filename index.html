@@ -52,31 +52,34 @@
         header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #f9f7f4;
-            padding: 3rem 2rem;
-            text-align: center;
+            padding: 2rem;
+            text-align: left;
             border-bottom: 4px solid #d4a574;
+            position: relative;
+            min-height: 350px;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            gap: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .header-content {
-            flex: 1;
-            min-width: 250px;
-            text-align: left;
+            gap: 2rem;
         }
 
         .profile-photo {
-            width: 280px;
-            height: 280px;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
             border: 6px solid #d4a574;
             object-fit: cover;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
             flex-shrink: 0;
-            margin-left: 2rem;
+            position: absolute;
+            left: -150px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .header-content {
+            flex: 1;
+            margin-left: 200px;
         }
 
         header h1 {
@@ -219,8 +222,8 @@
         /* Life Snapshot Section */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.8rem;
         }
 
         .photo-card {
@@ -228,30 +231,28 @@
             overflow: hidden;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 3px solid #1a1a2e;
+            border: 2px solid #1a1a2e;
             cursor: pointer;
             position: relative;
             aspect-ratio: 1 / 1;
         }
 
         .photo-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
         .photo-card img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             display: block;
-            background-color: #f0f0f0;
-            padding: 0.5rem;
         }
 
         .photo-caption {
-            padding: 0.6rem;
+            padding: 0.4rem;
             background-color: #f9f7f4;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 500;
             color: #1a1a2e;
             border-top: 2px solid #d4a574;
@@ -363,13 +364,25 @@
         /* Responsive */
         @media (max-width: 768px) {
             header {
+                position: relative;
+                min-height: auto;
                 flex-direction: column;
                 text-align: center;
-                gap: 1.5rem;
+                padding: 3rem 2rem 2rem;
+            }
+
+            .profile-photo {
+                position: static;
+                transform: none;
+                left: auto;
+                top: auto;
+                width: 200px;
+                height: 200px;
+                margin: 0 auto 1rem;
             }
 
             .header-content {
-                text-align: center;
+                margin-left: 0;
             }
 
             header h1 {
@@ -378,12 +391,6 @@
 
             header .tagline {
                 font-size: 1rem;
-            }
-
-            .profile-photo {
-                width: 220px;
-                height: 220px;
-                margin-left: 0;
             }
 
             nav ul {
@@ -408,8 +415,8 @@
             }
 
             .photo-grid {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-                gap: 0.8rem;
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                gap: 0.6rem;
             }
 
             .modal-close {
@@ -438,12 +445,12 @@
 
     <!-- Header -->
     <header>
+        <img src="PXL_20260816_220131355.jpg" alt="Caleb Dennis - Professional Profile" class="profile-photo">
         <div class="header-content">
             <h1>Caleb Dennis</h1>
             <p class="tagline">Accounting Student | Future CPA | Utah State University</p>
             <p class="subtitle">Huntsman School of Business • Bilingual Professional • Problem Solver</p>
         </div>
-        <img src="PXL_20260816_220131355.jpg" alt="Caleb Dennis - Professional Profile" class="profile-photo">
     </header>
 
     <!-- Main Content -->
@@ -486,7 +493,7 @@
             <h3>Student - Utah State University</h3>
             <div class="photo-grid">
                 <div class="photo-card" onclick="openModal(this)">
-                    <img src="PXL_20260823_204748272.jpg" alt="Student at Utah State University">
+                    <img src="PXL_20260823_204748272.jpg" alt="Student at Utah State University" style="object-position: center 20%;">
                     <div class="photo-caption">USU Student</div>
                 </div>
             </div>
@@ -502,15 +509,15 @@
             <h3>First Job! - City of Henderson Lifeguarding</h3>
             <div class="photo-grid">
                 <div class="photo-card" onclick="openModal(this)">
-                    <img src="PXL_20240804_013429902.jpg" alt="Lifeguard at City of Henderson">
+                    <img src="PXL_20240804_013429902.jpg" alt="Lifeguard at City of Henderson" style="object-position: center 30%;">
                     <div class="photo-caption">City of Henderson</div>
                 </div>
             </div>
 
-            <h3>Missionary Service in Arkansas - Ask me for one! Pregunta me para uno! 📖 Book of Mormon / El libro de mormon</h3>
+            <h3>Missionary Service - The Book of Mormon / El Libro de Mormon (Ask me for one! / Pregunta me para uno!)</h3>
             <div class="photo-grid">
                 <div class="photo-card" onclick="openModal(this)">
-                    <img src="20240926_150601.jpg" alt="Missionary service in Arkansas">
+                    <img src="20240926_150601.jpg" alt="Missionary service in Arkansas" style="object-position: center 20%;">
                     <div class="photo-caption">Mission Service</div>
                 </div>
             </div>
